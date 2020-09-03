@@ -15,7 +15,7 @@ var lineCursorMarge = 15;
 var CaseWidth=0,CaseHeight=0;
 var eCaseWidth=0,eCaseHeight=0;
 var squarePoses = [[[]]],eSquarePoses = [[[]]],CursorWallPoses = [[[]]],oldMyNumbers = [];
-
+var enemyWallsTodraw = [];
 var ReadyButton = null, ctx = null, maze = null,
     CopyEnterButton = null, CodeText = null, CreateButton = null,
     JoinButton = null,options = [];
@@ -32,13 +32,14 @@ window.onload = function(){
     oldMyNumbers = zerosArray(N);
     enemyNumbers = zerosArray(N);
     waySave = zerosArray(N);
-    
+    ;
     CopyEnterButton = document.querySelector("input[name=\"copy_or_enter\"]");
     CodeText = document.querySelector("input[name=\"Code\"]");
     CreateButton = document.querySelector("input[name=\"create\"]");
     JoinButton = document.querySelector("input[name=\"join\"]");
     
-    
+    CopyEnterButton.setAttribute("disabled","true");
+    CodeText.setAttribute("disabled","true");
     
 };
 
@@ -85,6 +86,7 @@ function display_2nd_mode(ctx,maze){
         }
         if(somethingChanged){
             drawGrid(eMazeSquare,ctx);
+            drawSeenWalls(ctx);
         }
         
         
@@ -117,18 +119,17 @@ function display_2nd_mode(ctx,maze){
                             play = true;
                         }
                         else{
-                            //DRAW WALL()
                             if(i != 0 && get_wall_value(i,j,0) == 1  && waySave[i-1][j] == 1){
-                               drawWall(i,j,0,ctx,WallColor);
+                                enemyWallsTodraw.push([i,j,0]);
                             }
                             if(i != (N-1) && get_wall_value(i,j,2) == 1  && waySave[i+1][j] == 1){
-                               drawWall(i,j,2,ctx,WallColor);
+                                enemyWallsTodraw.push([i,j,2]);
                             }
                             if(j != 0 && get_wall_value(i,j,3) == 1  && waySave[i][j-1] == 1){
-                               drawWall(i,j,3,ctx,WallColor);
+                                enemyWallsTodraw.push([i,j,3]);
                             }
                             if(j != (N-1) && get_wall_value(i,j,1) == 1  && waySave[i][j+1] == 1){
-                               drawWall(i,j,1,ctx,WallColor);
+                                enemyWallsTodraw.push([i,j,1]);
                             }
                             pass_roll();
                         }
@@ -148,8 +149,16 @@ function display_2nd_mode(ctx,maze){
         }
         if(somethingChanged){
             drawGrid(eMazeSquare,ctx);
+            drawSeenWalls(ctx);
         }
     }
+}
+function drawSeenWalls(ctx){
+    var arr = enemyWallsTodraw;
+    for(var i = 0;i <arr.length;i++){
+        drawWall(arr[i][0],arr[i][1],arr[i][2],ctx,WallColor);
+    }
+    drawGrid(eMazeSquare,ctx,false);
 }
 function dispaly_1s_mode(ctx,maze){
     initDimension(1);

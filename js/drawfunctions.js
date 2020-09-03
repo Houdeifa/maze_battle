@@ -82,39 +82,46 @@ function clearCases(ctx){
 function drawWall(i,j,n,ctx,color){
     ctx.beginPath();
     ctx.strokeStyle = color;
-    if(writemode == 0)
-        if(n == 3){
-            ctx.moveTo(squarePoses[i][j][0], squarePoses[i][j][1]);
-            ctx.lineTo(squarePoses[i+1][j][0], squarePoses[i+1][j][1]);
-        }else if(n==0){
-            ctx.moveTo(squarePoses[i][j][0], squarePoses[i][j][1]);
-            ctx.lineTo(squarePoses[i][j+1][0], squarePoses[i][j+1][1]);
-        }
-    else if(writemode == 1)
-        if(n == 3){
-            ctx.moveTo(eSquarePoses[i][j][0], eSquarePoses[i][j][1]);
-            ctx.lineTo(eSquarePoses[i+1][j][0], eSquarePoses[i+1][j][1]);
-        }else if(n==0){
-            ctx.moveTo(eSquarePoses[i][j][0], eSquarePoses[i][j][1]);
-            ctx.lineTo(eSquarePoses[i][j+1][0], eSquarePoses[i][j+1][1]);
-        }
+    var poses = null;
+    
+    if(writemode == 0){
+        poses = squarePoses;
+    }
+    else if(writemode == 1){
+        poses = eSquarePoses;
+    }
+    if(n == 3){
+        ctx.moveTo(poses[i][j][0], poses[i][j][1]);
+        ctx.lineTo(poses[i+1][j][0], poses[i+1][j][1]);
+    }else if(n==0){
+        ctx.moveTo(poses[i][j][0], poses[i][j][1]);
+        ctx.lineTo(poses[i][j+1][0], poses[i][j+1][1]);
+    }
     ctx.stroke();
 }
 function drawWalls(ctx){
     ctx.beginPath();
     ctx.strokeStyle = WallColor;
     var wallH = 0, wallV = 0;
+    
+    var poses = null;
+    
+    if(writemode == 0){
+        poses = squarePoses;
+    }else if(writemode == 1){
+        poses = eSquarePoses;
+    }
      for(var i =0;i<N;i++){
         for(var j =0;j<N;j++){
             wallH = get_wall_value(i,j,0), 
             wallV = get_wall_value(i,j,3);
             if(wallH == 1){
-                ctx.moveTo(squarePoses[i][j][0], squarePoses[i][j][1]);
-                ctx.lineTo(squarePoses[i][j+1][0], squarePoses[i][j+1][1]);
+                ctx.moveTo(poses[i][j][0], poses[i][j][1]);
+                ctx.lineTo(poses[i][j+1][0], poses[i][j+1][1]);
             }
             if(wallV == 1){
-                ctx.moveTo(squarePoses[i][j][0], squarePoses[i][j][1]);
-                ctx.lineTo(squarePoses[i+1][j][0], squarePoses[i+1][j][1]);
+                ctx.moveTo(poses[i][j][0], poses[i][j][1]);
+                ctx.lineTo(poses[i+1][j][0], poses[i+1][j][1]);
             }
         }
     }

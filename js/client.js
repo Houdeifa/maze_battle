@@ -56,11 +56,15 @@ function cmd_exec(cmd){
         case "play":
             writemode = 0;
             var i = cmd.pos[0], j = cmd.pos[1];
-            write_number(ctx,i,j,myNumbers[i][j]);
+            write_number(ctx,i,j,myNumbers[i][j],true);
+            drawGrid(mazeSquare,ctx);
+            drawWalls(ctx);
+            console.log("played got : " + cmd.pos);
             writemode = 1;
             break;
         case "roll":
             canPlay = ! canPlay;
+            started = true;
             break;
             
     }

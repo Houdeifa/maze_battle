@@ -1,8 +1,13 @@
 
 function ready(){
     send_ready();
+    started = false;
 }
 function create(){
+    if(!connected){
+        alert("could not connect to the server !");
+        return;
+    }
     roomCode = generateCode(8);
     creat_room();
     CopyEnterButton.removeAttribute("disabled");
@@ -13,6 +18,10 @@ function create(){
     JoinButton.removeAttribute("disabled");
 }
 function join(){
+    if(!connected){
+        alert("could not connect to the server !");
+        return;
+    }
     CopyEnterButton.removeAttribute("disabled");
     CodeText.removeAttribute("disabled");
     CodeText.value = "";
