@@ -1,0 +1,43 @@
+body
+{
+    align-content: center;
+    align-items: center;
+    canvas#MyMaze
+    {
+        border: 2px solid;
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+    #Options
+    {
+        display: none;
+        &.show
+        {
+            display: block;
+        }
+        margin-left: 50%;
+        transform: translateX(-50%);
+        width: max-content;
+        input
+        {
+            float: left;
+            &[name="create"]
+            {
+                margin-left: 50px;
+            }
+        }
+    }
+    #GameOptions
+    {
+        display: none;
+        &.show
+        {
+            display: block;
+        }
+        input
+        {
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+}

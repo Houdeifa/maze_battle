@@ -1,0 +1,18 @@
+{
+  "name": "maze_battle",
+  "version": "1.0.0",
+  "description": "Puzzle 2D online game, ceate a maze and try to solve the other player's one",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "maze",
+    "buttle"
+  ],
+  "author": "Houdeifa Aflihaou",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^4.0.2"
+  }
+}
