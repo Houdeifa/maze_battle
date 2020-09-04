@@ -1,4 +1,3 @@
-var X = 0, Y = 0;
 var WIDTH = 500, HEIGH = 500;
 var GRIDW  = 0, GRIDH = 0;
 var EmptyWallsColor = "#DADADA", WallColor = "#632100",
@@ -41,8 +40,25 @@ window.onload = function(){
     CopyEnterButton.setAttribute("disabled","true");
     CodeText.setAttribute("disabled","true");
     
+    display_win_list_mode(ctx,maze);
+    
 };
 
+function display_win_list_mode(ctx,maze){
+    mode = 3;
+    ctx.clearRect(0,0,WIDTH,HEIGH);
+    maze.onmousemove = null;
+    maze.onclick = null;
+    
+    if(Win == null)
+        return;
+    
+    if(Win == true){
+        writeText(ctx,"You Won !", [WIDTH/2,HEIGH*3/10],30,"#000000",true);
+    }else{
+        writeText(ctx,"You Lost !", [WIDTH/2,HEIGH*3/10],30,"#000000",true);
+    }
+}
 function display_2nd_mode(ctx,maze){
     var scale = 0.5;
     waySave = zerosArray(N);
@@ -64,7 +80,8 @@ function display_2nd_mode(ctx,maze){
     maze.onmousemove = function(event){
         if(!started || mode != 1 || !canPlay)
             return;
-        X = event.layerX, Y = event.layerY;
+        var pos = getMousePos(maze,event);
+        var X = pos.x, Y =  pos.y;
         var somethingChanged = false;
         for(var i =0;i<N;i++){
             for(var j =0;j<N;j++){
@@ -94,7 +111,9 @@ function display_2nd_mode(ctx,maze){
     maze.onclick = function(event){
         if(!started || mode != 1 || !canPlay)
             return;
-        X = event.layerX, Y = event.layerY;
+        
+        var pos = getMousePos(maze,event);
+        var X = pos.x, Y =  pos.y;
         var somethingChanged = false, play = false;
         for(var i =0;i<N;i++){
             for(var j =0;j<N;j++){
@@ -153,13 +172,7 @@ function display_2nd_mode(ctx,maze){
         }
     }
 }
-function drawSeenWalls(ctx){
-    var arr = enemyWallsTodraw;
-    for(var i = 0;i <arr.length;i++){
-        drawWall(arr[i][0],arr[i][1],arr[i][2],ctx,WallColor);
-    }
-    drawGrid(eMazeSquare,ctx,false);
-}
+
 function dispaly_1s_mode(ctx,maze){
     initDimension(1);
     drawGrid(mazeSquare,ctx);
@@ -169,7 +182,8 @@ function dispaly_1s_mode(ctx,maze){
     maze.onmousemove = function(event){
         if(!started || mode != 0)
             return;
-        X = event.layerX, Y = event.layerY;
+        var pos = getMousePos(maze,event);
+        var X = pos.x, Y =  pos.y;
         var somethingChanged = false;
         for(var i =0;i<N;i++){
             for(var j =0;j<N;j++){
@@ -205,7 +219,8 @@ function dispaly_1s_mode(ctx,maze){
     maze.onclick = function(event){
         if(!started || mode != 0)
             return;
-        X = event.layerX, Y = event.layerY;
+        var pos = getMousePos(maze,event);
+        var X = pos.x, Y =  pos.y;
         var somethingChanged = false;
          for(var i =0;i<N;i++){
             for(var j =0;j<N;j++){

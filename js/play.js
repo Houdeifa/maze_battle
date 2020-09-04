@@ -6,10 +6,14 @@ var waySave = [];
 var walls  = [[]], enemyWalls = [];
 var N = 7, myNumbers = [], enemyNumbers = [];
 var mode = 0,canPlay = true,writemode = 0 , first = false;
+/// default null
+var Win = true;
 
 function start_game(){
     started = true; 
 }
+
+
 
 function calculate_numbers(walls){
     var numbers = [], line = [];
@@ -155,3 +159,11 @@ function initDimension(scale,x,y){
     pointsFontSize = 30*scale;
     
 }
+
+function getMousePos(canvas, evt) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+          x: evt.clientX - rect.left,
+          y: evt.clientY - rect.top
+        };
+      }

@@ -59,6 +59,13 @@ function display_numbers(ctx,recalculate,all){
     oldMyNumbers = copyArray(myNumbers);
 }
 
+function drawSeenWalls(ctx){
+    var arr = enemyWallsTodraw;
+    for(var i = 0;i <arr.length;i++){
+        drawWall(arr[i][0],arr[i][1],arr[i][2],ctx,WallColor);
+    }
+    drawGrid(eMazeSquare,ctx,false);
+}
 
 function clearCase(ctx,i,j){
     var pos = [],cW = 0, cH = 0;
@@ -71,6 +78,15 @@ function clearCase(ctx,i,j){
         cW = eCaseWidth, cH = eCaseHeight;
     }
     ctx.clearRect(pos[0], pos[1], cW, cH);
+}
+
+function writeText(ctx,Text,pos,size,color,centred){
+    var offsets = [0, 0];
+    if(centred == true)
+        offsets = [((Text.length)*(size*0.7 - 2.2))/2, size/2];
+    ctx.font = size+'px sans serif';
+    ctx.fillStyle=color;
+    ctx.fillText(Text,pos[0] - offsets[0],pos[1] - offsets[1]);
 }
 function clearCases(ctx){
     for(var i =0;i<N;i++){

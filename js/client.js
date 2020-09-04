@@ -1,5 +1,5 @@
-//var socket = io.connect('https://secure-badlands-57848.herokuapp.com');
-var socket = io.connect('localhost:5000');
+var socket = io.connect('https://morning-journey-82771.herokuapp.com/');
+//var socket = io.connect('localhost:5000');
 var roomCode = '';
 var connected = false;
 var cmd = {};
